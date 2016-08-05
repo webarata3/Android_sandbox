@@ -4,9 +4,9 @@ Androidのサンプル集です
 
 <dl>
  <dt>AsyncTaskLoaderTest</dt>
- <dd>テスト</dd>
+ <dd>AsyncTaskLoaderのシンプルなサンプル</dd>
  <dt>FragmentTest</dt>
- <dd></dd>
+ <dd>FragmentとActivityの連携のサンプル</dd>
 </dl>
 
 ## ライセンス
