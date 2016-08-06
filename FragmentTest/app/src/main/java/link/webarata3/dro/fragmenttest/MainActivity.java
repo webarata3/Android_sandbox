@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
     implements MainActivityFragment.OnMainActivityFragmentListener {
+
+    private boolean isTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,15 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        View sideView = findViewById(R.id.fragmentSide);
+
+        isTwoPane = sideView != null;
+        if (isTwoPane) {
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentSide, new MainActivityFragment())
+                .commit();
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
@@ -46,11 +57,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClickButton(int x, int y) {
-        Intent intent = new Intent(this, ResultActivity.class);
-
-        intent.putExtra(ResultActivity.PARAM_X, x);
-        intent.putExtra(ResultActivity.PARAM_Y, y);
-        startActivity(intent);
-
+        if (isTwoPane) {
+            // 2ペインの場合には、メモを更新する
+            ResultActivityFragment resultActivityFragment =
+                (ResultActivityFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.fragmentResult);
+            resultActivityFragment.load(x, y);
+        } else {
+            Intent intent = ResultActivity.createIntent(this, x, y);
+            startActivity(intent);
+        }
     }
 }

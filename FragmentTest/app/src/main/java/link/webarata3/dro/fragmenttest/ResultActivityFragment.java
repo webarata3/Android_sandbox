@@ -1,15 +1,15 @@
 package link.webarata3.dro.fragmenttest;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class ResultActivityFragment extends Fragment {
+
+    private AppCompatTextView textView;
 
     public ResultActivityFragment() {
     }
@@ -17,6 +17,12 @@ public class ResultActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_result, container, false);
+        View view = inflater.inflate(R.layout.fragment_result, container, false);
+        textView = (AppCompatTextView) view.findViewById(R.id.textView);
+        return view;
+    }
+
+    public void load(int x, int y) {
+        textView.setText(String.valueOf(x + y));
     }
 }
