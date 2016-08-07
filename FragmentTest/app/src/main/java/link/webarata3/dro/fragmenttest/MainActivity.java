@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClickButton(int x, int y) {
         if (isTwoPane) {
-            // 2ペインの場合には、メモを更新する
+            // 2ペインの場合には、計算結果を更新する
             ResultActivityFragment resultActivityFragment =
                 (ResultActivityFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.fragmentResult);
