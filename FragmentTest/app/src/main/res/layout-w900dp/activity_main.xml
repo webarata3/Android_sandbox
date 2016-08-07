@@ -30,10 +30,12 @@
   android:showDividers="middle"
   app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-  <FrameLayout
-   android:id="@+id/fragmentSide"
-   android:layout_width="300dp"
+  <fragment
+   android:id="@+id/fragmentMain"
+   android:name="link.webarata3.dro.fragmenttest.MainActivityFragment"
+   android:layout_width="0dp"
    android:layout_height="match_parent"
+   android:layout_weight="1"
    tools:layout="@layout/fragment_main" />
 
   <fragment

@@ -22,14 +22,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        View sideView = findViewById(R.id.fragmentSide);
+        View resultView = findViewById(R.id.fragmentResult);
 
-        isTwoPane = sideView != null;
-        if (isTwoPane) {
-            getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentSide, new MainActivityFragment())
-                .commit();
-        }
+        isTwoPane = resultView != null;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
