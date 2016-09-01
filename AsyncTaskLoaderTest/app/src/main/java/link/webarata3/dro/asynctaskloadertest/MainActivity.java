@@ -3,13 +3,9 @@ package link.webarata3.dro.asynctaskloadertest;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SampleLoaderListener {
 

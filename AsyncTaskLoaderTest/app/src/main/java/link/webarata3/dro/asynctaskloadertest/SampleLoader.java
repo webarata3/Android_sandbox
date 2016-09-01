@@ -3,6 +3,8 @@ package link.webarata3.dro.asynctaskloadertest;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import java.util.Objects;
+
 public class SampleLoader extends AsyncTaskLoader<String> {
     private Integer count;
     private String result;

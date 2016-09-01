@@ -55,7 +55,7 @@ public class MainActivityFragment extends Fragment {
         if (context instanceof OnMainActivityFragmentListener) {
             onMainActivityFragmentListener = (OnMainActivityFragmentListener) context;
         } else {
-            throw new RuntimeException("AcitityにOnMainActivityの実装が必要です");
+            throw new RuntimeException("ActivityにOnMainActivityの実装が必要です");
         }
     }
 
