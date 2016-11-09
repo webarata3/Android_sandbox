@@ -23,7 +23,7 @@
 
  <fragment
   android:id="@+id/fragmentMain"
-  android:name="link.webarata3.dro.fragmenttest.MainActivityFragment"
+  android:name="link.webarata3.dro.fragmenttest.MainFragment"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   app:layout_behavior="@string/appbar_scrolling_view_behavior"

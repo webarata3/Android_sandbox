@@ -42,8 +42,8 @@ public class ResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int x = intent.getIntExtra(PARAM_X, 0);
         int y = intent.getIntExtra(PARAM_Y, 0);
-        ResultActivityFragment resultActivityFragment =
-            (ResultActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentResult);
+        ResultFragment resultActivityFragment =
+            (ResultFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentResult);
         resultActivityFragment.load(x, y);
     }
 

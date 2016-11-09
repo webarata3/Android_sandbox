@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity
-    implements MainActivityFragment.OnMainActivityFragmentListener {
+    implements MainFragment.OnMainFragmentListener {
 
     private boolean isTwoPane;
 
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity
     public void onClickButton(int x, int y) {
         if (isTwoPane) {
             // 2ペインの場合には、計算結果を更新する
-            ResultActivityFragment resultActivityFragment =
-                (ResultActivityFragment) getSupportFragmentManager()
+            ResultFragment resultActivityFragment =
+                (ResultFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.fragmentResult);
             resultActivityFragment.load(x, y);
         } else {

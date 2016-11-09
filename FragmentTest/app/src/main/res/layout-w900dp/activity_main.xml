@@ -32,7 +32,7 @@
 
   <fragment
    android:id="@+id/fragmentMain"
-   android:name="link.webarata3.dro.fragmenttest.MainActivityFragment"
+   android:name="link.webarata3.dro.fragmenttest.MainFragment"
    android:layout_width="0dp"
    android:layout_height="match_parent"
    android:layout_weight="1"
@@ -40,7 +40,7 @@
 
   <fragment
    android:id="@+id/fragmentResult"
-   android:name="link.webarata3.dro.fragmenttest.ResultActivityFragment"
+   android:name="link.webarata3.dro.fragmenttest.ResultFragment"
    android:layout_width="0dp"
    android:layout_height="match_parent"
    android:layout_weight="1"

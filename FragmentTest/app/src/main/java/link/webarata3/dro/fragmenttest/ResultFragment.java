@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ResultActivityFragment extends Fragment {
+public class ResultFragment extends Fragment {
 
     private AppCompatTextView textView;
 
-    public ResultActivityFragment() {
+    public ResultFragment() {
     }
 
     @Override
