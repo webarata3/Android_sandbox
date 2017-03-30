@@ -1,0 +1,4 @@
+<resources>
+ <string name="app_name">AsyncTest</string>
+ <string name="button_begin">開始</string>
+</resources>
