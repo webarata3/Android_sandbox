@@ -16,6 +16,8 @@ public class MainFragment extends Fragment implements TestThread.TestTask {
     private AppCompatTextView textView;
     private ExecutorService pool;
 
+    private TestModel testModel;
+
     public MainFragment() {
     }
 
@@ -25,10 +27,14 @@ public class MainFragment extends Fragment implements TestThread.TestTask {
         View fragment = inflater.inflate(R.layout.fragment_main, container, false);
         textView = (AppCompatTextView) fragment.findViewById(R.id.textView);
 
+        testModel = TestModel.getInstance();
+
         fragment.findViewById(R.id.beginButton).setOnClickListener(view -> {
-            textView.setText("処理開始");
-            pool = Executors.newSingleThreadExecutor();
-            pool.submit(new TestThread(this));
+            if (testModel.beginDownload()) {
+                textView.setText("処理開始");
+                pool = Executors.newSingleThreadExecutor();
+                pool.submit(new TestThread(this));
+            }
         });
 
         return fragment;
@@ -47,12 +53,14 @@ public class MainFragment extends Fragment implements TestThread.TestTask {
 
     @Override
     public void progressUpdate(int test) {
-        final int c = test;
         getActivity().runOnUiThread(() -> {
-            textView.setText(c + "");
+            testModel.setDownloadCount(test);
+            textView.setText(""+ test);
+            if (testModel.checkDownloadFinished()) {
+                testModel.finishDownload();
+            }
         });
     }
-
 }
 
 class TestThread extends Thread {
