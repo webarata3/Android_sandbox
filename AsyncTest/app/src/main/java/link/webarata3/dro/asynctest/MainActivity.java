@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
                 mainFragment.viewDownloadStatus(testModel.getDownloadCount());
                 break;
             case FINISH_COUNT:
-                mainFragment.viewDownloadStatus((testModel.getDownloadCount()));
+                mainFragment.viewDownloadStatus(testModel.getDownloadCount());
                 break;
         }
     }
