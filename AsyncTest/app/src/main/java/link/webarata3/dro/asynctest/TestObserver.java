@@ -1,5 +1,5 @@
 package link.webarata3.dro.asynctest;
 
-public interface Observer {
+public interface TestObserver {
     void notify(ModelEvent modelEvent);
 }

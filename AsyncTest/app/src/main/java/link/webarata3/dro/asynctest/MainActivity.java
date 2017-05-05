@@ -7,7 +7,7 @@ import android.view.Menu;
 
 // http://qiita.com/amay077/items/b5f4e98b50d7fbcbaaec
 public class MainActivity extends AppCompatActivity
-    implements  MainFragment.OnFragmentInteractionListener, Observer{
+    implements  MainFragment.OnFragmentInteractionListener, TestObserver {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 

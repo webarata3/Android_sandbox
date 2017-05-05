@@ -21,15 +21,15 @@ public class TestModel {
         return instance;
     }
 
-    private CopyOnWriteArrayList<Observer> observerList = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<TestObserver> testObserverList = new CopyOnWriteArrayList<>();
 
-    public void addObserver(Observer observer) {
-        observerList.add(observer);
+    public void addObserver(TestObserver testObserver) {
+        testObserverList.add(testObserver);
     }
 
     private void notifyAll(ModelEvent modelEvent) {
-        for (Observer observer : observerList) {
-            observer.notify(modelEvent);
+        for (TestObserver testObserver : testObserverList) {
+            testObserver.notify(modelEvent);
         }
     }
 
@@ -43,8 +43,8 @@ public class TestModel {
 
     public void setDownloadCount(int downloadCount) {
         this.downloadCount = downloadCount;
-        for (Observer observer : observerList) {
-            observer.notify(ModelEvent.ADD_COUNT);
+        for (TestObserver testObserver : testObserverList) {
+            testObserver.notify(ModelEvent.ADD_COUNT);
         }
         if (downloadCount == 100) {
             downloading = false;
