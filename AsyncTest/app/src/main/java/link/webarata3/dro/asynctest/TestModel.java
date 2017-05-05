@@ -4,6 +4,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import link.webarata3.dro.asynctest.io.DummyConnection;
+
 public class TestModel {
     private static final TestModel instance = new TestModel();
 
@@ -38,10 +40,31 @@ public class TestModel {
         downloading = true;
         downloadCount = 0;
         notifyAll(ModelEvent.BEGIN_COUNT);
-        downloadPool.submit(new TestThread(this));
+        DummyConnection dummyConnection = new DummyConnection(new DummyConnection.Callback() {
+            @Override
+            public void onProgress(int rate) {
+                setDownloadCount(rate
+                );
+            }
+
+            @Override
+            public void onSuccess(String content) {
+                setDownloadCount(100);
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+            }
+        });
+        downloadPool.submit(new Runnable() {
+            @Override
+            public void run() {
+                dummyConnection.get();
+            }
+        });
     }
 
-    public void setDownloadCount(int downloadCount) {
+    public synchronized void setDownloadCount(int downloadCount) {
         this.downloadCount = downloadCount;
         for (TestObserver testObserver : testObserverList) {
             testObserver.notify(ModelEvent.ADD_COUNT);
@@ -52,32 +75,7 @@ public class TestModel {
         }
     }
 
-    public int getDownloadCount() {
+    public synchronized int getDownloadCount() {
         return downloadCount;
     }
 }
-
-class TestThread implements Runnable {
-    private TestModel testModel;
-
-    TestThread(TestModel testModel) {
-        this.testModel = testModel;
-    }
-
-    @Override
-    public void run() {
-        try {
-            for (int i = 0; i <= 100; i++) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                testModel.setDownloadCount(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}
-

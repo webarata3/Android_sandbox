@@ -48,9 +48,7 @@ public class MainFragment extends Fragment {
     }
 
     public void viewDownloadStatus(int test) {
-        getActivity().runOnUiThread(() -> {
-            textView.setText(String.valueOf(test));
-        });
+        textView.setText(String.valueOf(test));
     }
 
     public interface OnFragmentInteractionListener {

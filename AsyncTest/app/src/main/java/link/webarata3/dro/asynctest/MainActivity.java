@@ -41,13 +41,19 @@ public class MainActivity extends AppCompatActivity
             (MainFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         switch(modelEvent) {
             case BEGIN_COUNT:
-                mainFragment.viewDownloadStatus(0);
+                runOnUiThread(() -> {
+                  mainFragment.viewDownloadStatus(0);
+                });
                 break;
             case ADD_COUNT:
-                mainFragment.viewDownloadStatus(testModel.getDownloadCount());
+                runOnUiThread(() -> {
+                    mainFragment.viewDownloadStatus(testModel.getDownloadCount());
+                });
                 break;
             case FINISH_COUNT:
-                mainFragment.viewDownloadStatus(testModel.getDownloadCount());
+                runOnUiThread(() -> {
+                    mainFragment.viewDownloadStatus(testModel.getDownloadCount());
+                });
                 break;
         }
     }
