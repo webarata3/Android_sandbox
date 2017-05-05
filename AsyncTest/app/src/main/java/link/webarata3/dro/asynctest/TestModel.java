@@ -1,7 +1,5 @@
 package link.webarata3.dro.asynctest;
 
-import android.util.Log;
-
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -58,8 +56,6 @@ public class TestModel {
 }
 
 class TestThread implements Runnable {
-    private static final String TAG = TestThread.class.getSimpleName();
-
     private TestModel testModel;
 
     TestThread(TestModel testModel) {
@@ -68,7 +64,6 @@ class TestThread implements Runnable {
 
     @Override
     public void run() {
-        Log.d(TAG, "Run task A. ThreadId:" + Thread.currentThread().getId());
         try {
             for (int i = 0; i <= 100; i++) {
                 try {
