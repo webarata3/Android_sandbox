@@ -57,12 +57,8 @@ public class TestModel {
     }
 }
 
-class TestThread extends Thread {
+class TestThread implements Runnable {
     private static final String TAG = TestThread.class.getSimpleName();
-
-    interface TestTask {
-        void progressUpdate(int test);
-    }
 
     private TestModel testModel;
 
