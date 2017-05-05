@@ -27,13 +27,17 @@ public class TestModel {
         observerList.add(observer);
     }
 
+    private void notifyAll(ModelEvent modelEvent) {
+        for (Observer observer : observerList) {
+            observer.notify(modelEvent);
+        }
+    }
+
     public synchronized void beginDownload() {
         if (downloading) return;
         downloading = true;
         downloadCount = 0;
-        for (Observer observer : observerList) {
-            observer.notify(ModelEvent.BEGIN_COUNT);
-        }
+        notifyAll(ModelEvent.BEGIN_COUNT);
         downloadPool.submit(new TestThread(this));
     }
 
@@ -44,9 +48,7 @@ public class TestModel {
         }
         if (downloadCount == 100) {
             downloading = false;
-            for (Observer observer : observerList) {
-                observer.notify(ModelEvent.FINISH_COUNT);
-            }
+            notifyAll(ModelEvent.ADD_COUNT);
         }
     }
 
