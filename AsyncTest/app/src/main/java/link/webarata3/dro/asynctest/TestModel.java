@@ -10,10 +10,11 @@ public class TestModel {
     private boolean downloading;
     private int downloadCount;
 
-    private ExecutorService pool;
+    private ExecutorService downloadPool;
 
     private TestModel() {
         downloading = false;
+        downloadPool = Executors.newSingleThreadScheduledExecutor();
     }
 
     public static TestModel getInstance() {
@@ -33,8 +34,7 @@ public class TestModel {
         for (Observer observer : observerList) {
             observer.notify(ModelEvent.BEGIN_COUNT);
         }
-        pool = Executors.newSingleThreadExecutor();
-        pool.submit(new TestThread(this));
+        downloadPool.submit(new TestThread(this));
     }
 
     public void setDownloadCount(int downloadCount) {
