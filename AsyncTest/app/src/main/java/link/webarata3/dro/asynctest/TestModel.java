@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 
 import link.webarata3.dro.asynctest.io.DummyConnection;
 
-public class TestModel {
+public class TestModel implements DummyConnection.Callback {
     private static final TestModel instance = new TestModel();
 
     private boolean downloading;
@@ -35,27 +35,26 @@ public class TestModel {
         }
     }
 
+    @Override
+    public void onProgress(int rate) {
+        setDownloadCount(rate);
+    }
+
+    @Override
+    public void onSuccess(String content) {
+        setDownloadCount(100);
+    }
+
+    @Override
+    public void onFailure(Throwable throwable) {
+    }
+
     public synchronized void beginDownload() {
         if (downloading) return;
         downloading = true;
         downloadCount = 0;
         notifyAll(ModelEvent.BEGIN_COUNT);
-        DummyConnection dummyConnection = new DummyConnection(new DummyConnection.Callback() {
-            @Override
-            public void onProgress(int rate) {
-                setDownloadCount(rate
-                );
-            }
-
-            @Override
-            public void onSuccess(String content) {
-                setDownloadCount(100);
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-            }
-        });
+        DummyConnection dummyConnection = new DummyConnection(this);
         downloadPool.submit(new Runnable() {
             @Override
             public void run() {
