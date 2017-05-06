@@ -1,12 +1,14 @@
 package link.webarata3.dro.intentservicetest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements MainActivityFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +38,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent = new Intent(this, TestIntentService.class);
+        stopService(intent);
+    }
+
+    @Override
+    public void onClickBeginButton() {
+        Intent intent = new Intent(this, TestIntentService.class);
+        intent.putExtra("IntentServiceCommand", "TestText");
+        startService(intent);
     }
 }

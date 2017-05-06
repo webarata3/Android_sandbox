@@ -17,5 +17,11 @@ public class TestIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d("IntentService","onHandleIntent Start");
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d("IntentService","onHandleIntent finish");
     }
 }

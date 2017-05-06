@@ -1,12 +1,22 @@
 package link.webarata3.dro.intentservicetest;
 
-import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class MainActivityFragment extends Fragment {
+
+    private AppCompatTextView textView;
+
+    private OnFragmentInteractionListener onFragmentInteractionListener;
+
+    public interface OnFragmentInteractionListener {
+        void onClickBeginButton();
+    }
 
     public MainActivityFragment() {
     }
@@ -14,6 +24,32 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View fragment = inflater.inflate(R.layout.fragment_main, container, false);
+
+        textView = (AppCompatTextView) fragment.findViewById(R.id.textView);
+
+        fragment.findViewById(R.id.beginButton).setOnClickListener(view -> {
+            onFragmentInteractionListener.onClickBeginButton();
+        });
+        ServiceUtil.isServiceRunning(getActivity().getApplicationContext(), TestIntentService.class);
+
+        return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            onFragmentInteractionListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        onFragmentInteractionListener = null;
     }
 }
