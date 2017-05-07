@@ -61,9 +61,12 @@ public class MainActivityFragment extends Fragment {
         intent.putExtra("IntentServiceCommand", "TestText");
         getActivity().startService(intent);
 
-        SampleDialogFragment newFragment = SampleDialogFragment.newInstance(
+        UploadDialogFragment uploadDialogFragment = UploadDialogFragment.newInstance(
             "title", "this is message");
-//        newFragment.setDialogListener(this);
-        newFragment.show(getActivity().getSupportFragmentManager(), "SampleDialogFragment");
+        uploadDialogFragment.show(getActivity().getSupportFragmentManager(), "UploadDialogFragment");
+//        SampleDialogFragment newFragment = SampleDialogFragment.newInstance(
+//            "title", "this is message");
+////        newFragment.setDialogListener(this);
+//        newFragment.show(getActivity().getSupportFragmentManager(), "SampleDialogFragment");
     }
 }

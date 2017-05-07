@@ -16,7 +16,7 @@ public class SampleDialogFragment extends DialogFragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-    
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // パラメータを取得
