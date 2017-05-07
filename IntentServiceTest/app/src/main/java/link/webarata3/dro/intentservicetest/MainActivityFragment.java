@@ -1,7 +1,9 @@
 package link.webarata3.dro.intentservicetest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Messenger;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
@@ -51,5 +53,17 @@ public class MainActivityFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         onFragmentInteractionListener = null;
+    }
+
+    public void onClickBeginButton() {
+        Intent intent = new Intent(getActivity(), TestIntentService.class);
+        intent.putExtra("messenger", new Messenger(new TestHandler()));
+        intent.putExtra("IntentServiceCommand", "TestText");
+        getActivity().startService(intent);
+
+        SampleDialogFragment newFragment = SampleDialogFragment.newInstance(
+            "title", "this is message");
+//        newFragment.setDialogListener(this);
+        newFragment.show(getActivity().getSupportFragmentManager(), "SampleDialogFragment");
     }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Messenger;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -53,10 +52,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClickBeginButton() {
-        Intent intent = new Intent(this, TestIntentService.class);
-        intent.putExtra("messenger", new Messenger(new TestHandler()));
-        intent.putExtra("IntentServiceCommand", "TestText");
-        startService(intent);
+        MainActivityFragment mainActivityFragment =
+            (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
+        mainActivityFragment.onClickBeginButton();
     }
 }
 
