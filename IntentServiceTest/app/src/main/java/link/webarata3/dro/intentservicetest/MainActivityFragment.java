@@ -3,6 +3,8 @@ package link.webarata3.dro.intentservicetest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Messenger;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
@@ -15,6 +17,8 @@ public class MainActivityFragment extends Fragment {
     private AppCompatTextView textView;
 
     private OnFragmentInteractionListener onFragmentInteractionListener;
+
+//    Handler handler;
 
     public interface OnFragmentInteractionListener {
         void onClickBeginButton();
@@ -35,6 +39,13 @@ public class MainActivityFragment extends Fragment {
         });
         ServiceUtil.isServiceRunning(getActivity().getApplicationContext(), TestIntentService.class);
 
+//        handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message message) {
+//                textView.setText(message.what + "");
+//            }
+//        };
+//
         return fragment;
     }
 
@@ -61,12 +72,12 @@ public class MainActivityFragment extends Fragment {
         intent.putExtra("IntentServiceCommand", "TestText");
         getActivity().startService(intent);
 
-        UploadDialogFragment uploadDialogFragment = UploadDialogFragment.newInstance(
-            "title", "this is message");
-        uploadDialogFragment.show(getActivity().getSupportFragmentManager(), "UploadDialogFragment");
-//        SampleDialogFragment newFragment = SampleDialogFragment.newInstance(
-//            "title", "this is message");
-////        newFragment.setDialogListener(this);
-//        newFragment.show(getActivity().getSupportFragmentManager(), "SampleDialogFragment");
+    }
+}
+
+class TestHandler extends Handler {
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
     }
 }

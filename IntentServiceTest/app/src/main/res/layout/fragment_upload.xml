@@ -10,7 +10,7 @@
  tools:context=".UploadDialogFragment">
 
  <android.support.v7.widget.AppCompatTextView
-  android:id="@+id/uploadTextView"
+  android:id="@+id/messageTextView"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:layout_alignParentTop="true"
@@ -22,7 +22,7 @@
   android:id="@+id/fileNameTextView"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:layout_below="@+id/uploadTextView"
+  android:layout_below="@+id/messageTextView"
   android:layout_centerHorizontal="true"
   android:layout_marginTop="20dp"
   android:text="pic20170402.jpg" />

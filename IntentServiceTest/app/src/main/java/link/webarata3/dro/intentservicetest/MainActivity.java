@@ -2,11 +2,8 @@ package link.webarata3.dro.intentservicetest;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -55,13 +52,5 @@ public class MainActivity extends AppCompatActivity
         MainActivityFragment mainActivityFragment =
             (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
         mainActivityFragment.onClickBeginButton();
-    }
-}
-
-class TestHandler extends Handler {
-    @Override
-    public void handleMessage(Message msg) {
-        super.handleMessage(msg);
-        Log.i("#####", msg.getData().getString("test"));
     }
 }

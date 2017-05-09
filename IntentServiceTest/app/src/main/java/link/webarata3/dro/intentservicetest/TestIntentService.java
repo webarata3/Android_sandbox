@@ -30,6 +30,7 @@ public class TestIntentService extends IntentService {
                 msg.setData(bundle2);
                 try {
                     messenger.send(msg);
+                    Log.d("IntentService", "###### " + i);
                 } catch (RemoteException e) {
                     Log.i("error", "error");
                 }
