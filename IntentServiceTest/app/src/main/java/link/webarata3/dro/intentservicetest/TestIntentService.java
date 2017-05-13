@@ -8,6 +8,8 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 
+import java.util.Objects;
+
 public class TestIntentService extends IntentService {
     public TestIntentService(String name) {
         super(name);
@@ -22,15 +24,16 @@ public class TestIntentService extends IntentService {
         Log.d("IntentService", "onHandleIntent Start");
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i <= 100; i++) {
+                // https://techbooster.org/android/application/6191/
+                // obtainすることでリサイクル対象となったオブジェクトプールから再利用してMessageを生成する
                 Messenger messenger = (Messenger) bundle.get("messenger");
+                Objects.requireNonNull(messenger);
                 Message msg = Message.obtain();
-                Bundle bundle2 = new Bundle();
-                bundle2.putCharSequence("test", "test" + i);
-                msg.setData(bundle2);
+                msg.obj = i + " / 100";
+                msg.what = 1;
                 try {
                     messenger.send(msg);
-                    Log.d("IntentService", "###### " + i);
                 } catch (RemoteException e) {
                     Log.i("error", "error");
                 }

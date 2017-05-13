@@ -8,11 +8,12 @@ import android.os.Message;
 import android.os.Messenger;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements TestHandler.OnTestHandlerListener {
 
     private AppCompatTextView textView;
 
@@ -35,17 +36,11 @@ public class MainActivityFragment extends Fragment {
         textView = (AppCompatTextView) fragment.findViewById(R.id.textView);
 
         fragment.findViewById(R.id.beginButton).setOnClickListener(view -> {
-            onFragmentInteractionListener.onClickBeginButton();
+            if (!ServiceUtil.isServiceRunning(getActivity().getApplicationContext(), TestIntentService.class)) {
+                onFragmentInteractionListener.onClickBeginButton();
+            }
         });
-        ServiceUtil.isServiceRunning(getActivity().getApplicationContext(), TestIntentService.class);
 
-//        handler = new Handler() {
-//            @Override
-//            public void handleMessage(Message message) {
-//                textView.setText(message.what + "");
-//            }
-//        };
-//
         return fragment;
     }
 
@@ -68,16 +63,33 @@ public class MainActivityFragment extends Fragment {
 
     public void onClickBeginButton() {
         Intent intent = new Intent(getActivity(), TestIntentService.class);
-        intent.putExtra("messenger", new Messenger(new TestHandler()));
-        intent.putExtra("IntentServiceCommand", "TestText");
+        intent.putExtra("messenger", new Messenger(new TestHandler(this)));
         getActivity().startService(intent);
 
     }
+
+    @Override
+    public void progressDownload(String status) {
+        textView.setText(status);
+    }
+
 }
 
 class TestHandler extends Handler {
+    private OnTestHandlerListener listener;
+
+    public interface OnTestHandlerListener {
+        void progressDownload(String status);
+    }
+
+    public TestHandler(OnTestHandlerListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
+        Log.d("#########", msg.obj.toString());
+        listener.progressDownload(msg.obj.toString());
     }
 }
