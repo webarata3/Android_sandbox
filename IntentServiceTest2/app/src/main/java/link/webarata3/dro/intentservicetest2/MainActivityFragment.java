@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 public class MainActivityFragment extends Fragment implements TestResultReceiver.Receiver {
     private AppCompatTextView textView;
+    private AppCompatButton beginButton;
     private TestResultReceiver receiver;
 
     private OnFragmentInteractionListener onFragmentInteractionListener;
@@ -30,11 +32,12 @@ public class MainActivityFragment extends Fragment implements TestResultReceiver
         View fragment = inflater.inflate(R.layout.fragment_main, container, false);
 
         textView = (AppCompatTextView) fragment.findViewById(R.id.textView);
+        beginButton = (AppCompatButton) fragment.findViewById(R.id.beginButton);
 
         receiver = new TestResultReceiver(new Handler());
         receiver.setReceiver(this);
 
-        fragment.findViewById(R.id.beginButton).setOnClickListener(view -> {
+        beginButton.setOnClickListener(view -> {
             onFragmentInteractionListener.onClickBeginButton();
         });
 
@@ -60,6 +63,7 @@ public class MainActivityFragment extends Fragment implements TestResultReceiver
 
     public void onClickBeginButton() {
         Toast.makeText(getActivity(), "Start", Toast.LENGTH_SHORT).show();
+        beginButton.setEnabled(false);
 
         Intent intent = new Intent(getActivity(), TestIntentService.class);
         intent.putExtra("receiver", receiver);
@@ -69,6 +73,11 @@ public class MainActivityFragment extends Fragment implements TestResultReceiver
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
-        textView.setText(resultData.getString("progress"));
+        int progress = resultData.getInt("progress");
+        textView.setText(progress+ "%");
+
+        if (progress == 100) {
+            beginButton.setEnabled(true);
+        }
     }
 }

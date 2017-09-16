@@ -26,7 +26,7 @@ public class TestIntentService extends IntentService {
 
         for (int i = 0; i < 100; i++) {
             try {
-                bundle.putString("progress", i + "%");
+                bundle.putInt("progress", i + 1);
                 receiver.send(1, bundle);
 
                 TimeUnit.MILLISECONDS.sleep(100);
