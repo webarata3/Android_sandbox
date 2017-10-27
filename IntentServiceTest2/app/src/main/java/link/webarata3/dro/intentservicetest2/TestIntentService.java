@@ -30,7 +30,7 @@ public class TestIntentService extends IntentService {
                 receiver.send(1, bundle);
 
                 TimeUnit.MILLISECONDS.sleep(100);
-            }catch(InterruptedException e) {
+            } catch (InterruptedException e) {
             }
         }
         Log.d(TAG, "Service Stopping!");
